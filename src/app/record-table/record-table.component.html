@@ -1,0 +1,23 @@
+<button type="button" (click)="copyLines()">Copy lines to clipboard</button>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th *ngFor="let key of keys">{{key}}</th>
+        </tr>
+    </thead>
+    <tbody #matchResultContainer *ngFor="let matchResult of matchResults">
+        <tr>
+            <td [attr.rowspan]="matchResult.matches.length + 1">
+                <button type="button"
+                    (click)="matchResultContainer.hidden = true;matchResult.target.Status = 'ok'">Submit</button>
+                <button type="button"
+                    (click)="matchResultContainer.hidden = true;matchResult.target.Status = ''">Reject</button>
+            </td>
+            <td *ngFor="let key of keys">{{matchResult.target[key]}}</td>
+        </tr>
+        <tr *ngFor="let match of matchResult.matches">
+            <td *ngFor="let key of keys" [class.matchKey]="match.keys.includes(key)">{{match.source[key]}}</td>
+        </tr>
+    </tbody>
+</table>
